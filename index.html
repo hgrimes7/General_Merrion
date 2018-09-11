@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="jquery.jAudio.js"></script>
 
     <style>
         div#home {
@@ -61,6 +62,22 @@
             color: black;
         }
 
+        a[class^='jAudioBtn'] {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            text-decoration: none;
+            background: url('controls.png');
+        }
+
+        a.jAudioBtnPlay {
+            background-position: top;
+        }
+
+        a.jAudioBtnPause {
+            background-position: bottom;
+        }
+
     </style>
 </head>
 
@@ -70,6 +87,9 @@
 
 
         <div role="main" class="ui-content">
+
+            <a href="sound1.mp3">Sample Music One</a>
+
             <div id="merrionLandingPage"></div>
         </div>
 
