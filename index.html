@@ -1,0 +1,245 @@
+<html>
+
+<head>
+    <title>Dublin Squares Trial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+        div#home {
+            background-image: url("Oscar_Wilde1.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100%;
+
+        }
+
+        ui-content {
+            height: 100%;
+        }
+
+        a.discover.ui-link.ui-btn.ui-corner-all.ui-shadow.ui-corner-all.ui-mini {
+            background-color: transparent;
+            color: white;
+            border-color: white;
+            border-width: thick;
+            border-radius: solid;
+            box-shadow: none;
+            font-size: 20px;
+            text-align: center;
+            margin-left: 43%;
+            margin-top: 28%;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        h3 {
+            color: white;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .column {
+            flex: 25%;
+            padding: 5px;
+        }
+
+        #merrionGeneral h3 {
+            color: black;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div data-role="page" id="home">
+
+
+        <div role="main" class="ui-content">
+            <div id="merrionLandingPage"></div>
+        </div>
+
+    </div>
+
+
+    <div data-role="page" id="merrionGeneral">
+
+        <div role="main" class="ui-content">
+            <div class="row">
+                <div class="column">
+                    <div id="menuItem_1"></div>
+                </div>
+                <div class="column">
+                    <div id="menuItem_2"></div>
+
+                </div>
+                <div class="column">
+                    <div id="menuItem_3"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div data-role="page" id="generalHistoryAndHistoricalEvents">
+
+        <h1>no comment 1</h1>
+
+    </div>
+
+    <div data-role="page" id="notableFigures">
+
+        <h1>no comment 2</h1>
+
+    </div>
+
+    <div data-role="page" id="writtenAccounts">
+
+        <h1>no comment 3</h1>
+
+    </div>
+
+
+
+
+</body>
+<script>
+    var landingPage = [];
+
+    landingPage[1] = {
+        h1: 'Some interesting placeholder text here!!',
+        h3: 'by Someone of Interest',
+        button: '<a class="discover" data-role="button" data-mini="true" data-inline="true">Discover</a>',
+        destination: 'merrionGeneral',
+    };
+
+    var generalMerrionMenuItems = [];
+    generalMerrionMenuItems[1] = {
+        destination: 'generalHistoryAndHistoricalEvents',
+        title: 'General History And Historical Events',
+        image: 'Oscar_Wilde2.jpg',
+        style: 'width:100%',
+        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        stories: '',
+    };
+    generalMerrionMenuItems[2] = {
+        destination: 'notableFigures',
+        title: 'Notable Figures',
+        image: 'Oscar_Wilde2.jpg',
+        style: 'width:100%',
+        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        stories: '',
+    };
+    generalMerrionMenuItems[3] = {
+        destination: 'writtenAccounts',
+        title: 'Written Accounts',
+        image: 'Oscar_Wilde2.jpg',
+        style: 'width:100%',
+        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        stories: '',
+    };
+
+
+
+    function getMerrionMenuItemsById(id, callBack) {
+        var menuItems = generalMerrionMenuItems[id];
+        callBack(menuItems);
+    }
+
+    function getLandingPageById(id, callBack) {
+        var menuItems = landingPage[id];
+        callBack(menuItems);
+    }
+
+
+    function generateLandingPage(items) {
+        var html = '';
+        html += '<div>'
+        html += '<h1>' + items.h1 + '</h1>\r\n'
+        html += '<h3>' + items.h3 + '</h3>\r\n'
+        html += '<div class="discoverSection" data-destination="#' + items.destination + '">' + items.button + '\r\n'
+        html += '</div>';
+        return html;
+    }
+
+    function generateMerrionMenu(menu) {
+        var html = '';
+        html += '<div>'
+        html += '<div class="menuLink" data-destination="#' + menu.destination + '">\r\n'
+        html += '<img src="' + menu.image + '" style="' + menu.style + '">\r\n'
+        html += '<h3>' + menu.title + '</h3>' + '</div>'
+        html += '</div>';
+        return html;
+    }
+    $(document).ready(function() {
+
+        getLandingPageById(1, function(item) {
+            console.log(generateLandingPage(item));
+            $('#merrionLandingPage').html(generateLandingPage(item));
+        });
+
+        getMerrionMenuItemsById(1, function(menuItem) {
+            console.log(generateMerrionMenu(menuItem));
+            $('#menuItem_1').html(generateMerrionMenu(menuItem));
+        });
+        getMerrionMenuItemsById(2, function(menuItem) {
+            console.log(generateMerrionMenu(menuItem));
+            $('#menuItem_2').html(generateMerrionMenu(menuItem));
+        });
+        getMerrionMenuItemsById(3, function(menuItem) {
+            console.log(generateMerrionMenu(menuItem));
+            $('#menuItem_3').html(generateMerrionMenu(menuItem));
+        });
+
+
+        $('.discoverSection').click(function(e) {
+            e.preventDefault();
+            debugger;
+            var dataDestination = $(this).data('destination');
+            console.log(dataDestination);
+
+            $.mobile.changePage(dataDestination, {
+                transition: "slide"
+            });
+        });
+
+        $('.scrollThruSection').scroll(function(e) {
+            e.preventDefault();
+            debugger;
+            var dataDestination = $(this).data('destination');
+            console.log(dataDestination);
+
+            $.mobile.changePage(dataDestination, {
+                transition: "slide"
+            });
+        });
+
+        $('.menuLink').click(function(e) {
+            e.preventDefault();
+            debugger;
+            var dataDestination = $(this).data('destination');
+            console.log(dataDestination);
+
+            $.mobile.changePage(dataDestination, {
+                transition: "slide"
+            });
+        });
+
+    });
+
+</script>
+
+</html>
