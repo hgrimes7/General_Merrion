@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="jquery.jAudio.js"></script>
+
 
     <style>
         div#home {
@@ -62,33 +62,24 @@
             color: black;
         }
 
-        a[class^='jAudioBtn'] {
-            display: inline-block;
-            width: 26px;
-            height: 26px;
-            text-decoration: none;
-            background: url('controls.png');
-        }
-
-        a.jAudioBtnPlay {
-            background-position: top;
-        }
-
-        a.jAudioBtnPause {
-            background-position: bottom;
-        }
-
     </style>
 </head>
 
 <body>
+
 
     <div data-role="page" id="home">
 
 
         <div role="main" class="ui-content">
 
-            <a href="sound1.mp3">Sample Music One</a>
+            <!--<button onclick="Play()" id="music"></button>
+            <button id="music"></button>-->
+            <div id="backgroundAudio"></div>
+
+            <audio id="appAudio">
+                <source src="Hilouine/Hilouine.mp3" type="audio/mp3"/>
+            </audio>
 
             <div id="merrionLandingPage"></div>
         </div>
@@ -99,6 +90,8 @@
     <div data-role="page" id="merrionGeneral">
 
         <div role="main" class="ui-content">
+            <div id="backgroundAudio"></div>
+
             <div class="row">
                 <div class="column">
                     <div id="menuItem_1"></div>
@@ -139,6 +132,44 @@
 
 </body>
 <script>
+    var backgroundAudio = document.getElementById('appAudio');
+    var audioButton = document.getElementById('music');
+
+    function Play() {
+        if (backgroundAudio.paused) {
+            backgroundAudio.play();
+            audioButton.style.background = 'url(Play.png) no-repeat';
+        } else {
+            backgroundAudio.pause();
+            audioButton.style.background = 'url(Pause.png) no-repeat';
+        }
+    }
+
+
+
+    function generateInitialPlayButton(audio) {
+        var html = '';
+        html += '<div>'
+        html += '<button id="music"></button>\r\n'
+        //html += '<audio id="' + audio.audioID + '"><source src="' + audio.audioURL + '" type="audio/mp3"/></audio>\r\n'
+        html += '</div>';
+        return html;
+    }
+
+    /*  function getAudio(audio) {
+          var html = '';
+          html += '<div>'
+          html += '<audio id="' + audio.audioID + '"><source src=' + audio.audioURL + 'type="audio/mp3"/>\r\n'
+          html += '</div>';
+          return html;
+      }*/
+
+    var audioForApp = {
+        audioID: 'appAudio',
+        audioURL: 'Hilouine/Hilouine.mp3'
+    }
+
+
     var landingPage = [];
 
     landingPage[1] = {
@@ -187,6 +218,7 @@
     }
 
 
+
     function generateLandingPage(items) {
         var html = '';
         html += '<div>'
@@ -207,6 +239,8 @@
         return html;
     }
     $(document).ready(function() {
+        console.log(generateInitialPlayButton(audioForApp));
+        $('#backgroundAudio').html(generateInitialPlayButton());
 
         getLandingPageById(1, function(item) {
             console.log(generateLandingPage(item));
@@ -238,16 +272,23 @@
             });
         });
 
-        $('.scrollThruSection').scroll(function(e) {
+        $('#music').click(function(e) {
             e.preventDefault();
             debugger;
-            var dataDestination = $(this).data('destination');
-            console.log(dataDestination);
-
-            $.mobile.changePage(dataDestination, {
-                transition: "slide"
-            });
+            Play();
         });
+        /*  
+        $('.scrollThruSection').scroll(function(e) {
+              e.preventDefault();
+              debugger;
+              var dataDestination = $(this).data('destination');
+              console.log(dataDestination);
+
+              $.mobile.changePage(dataDestination, {
+                  transition: "slide"
+              });
+          });
+          */
 
         $('.menuLink').click(function(e) {
             e.preventDefault();
@@ -259,6 +300,7 @@
                 transition: "slide"
             });
         });
+
 
     });
 
