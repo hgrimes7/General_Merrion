@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="jquery.paroller.min.js"></script>
+
 
 
     <style>
@@ -26,26 +28,38 @@
             height: 100%;
         }
 
-        a.discover.ui-link.ui-btn.ui-corner-all.ui-shadow.ui-corner-all.ui-mini {
+        a.discover {
             background-color: transparent;
             color: white;
+            text-shadow: none;
             border-color: white;
             border-width: thick;
             border-radius: solid;
             box-shadow: none;
-            font-size: 20px;
+            font-size: 30px;
             text-align: center;
-            margin-left: 43%;
-            margin-top: 28%;
-            padding-top: 8px;
-            padding-bottom: 8px;
+            margin-top: 90%;
+            margin-left: 12%;
+            margin-right: 60%;
         }
 
-        h1 {
+        div.discoverSection {
+            margin-top: 20%;
+        }
+
+        button#music {
+            margin-top: 23%;
+            margin-left: 98%;
+        }
+
+        #home h1 {
+            padding-left: 2%;
             color: white;
         }
 
-        h3 {
+        #home h3 {
+            padding-top: 1%;
+            padding-left: 2%;
             color: white;
         }
 
@@ -62,7 +76,53 @@
             color: black;
         }
 
+        #menuItem_1 img {
+            height: 93vh;
+        }
+
+        #menuItem_2 img {
+            height: 93vh;
+        }
+
+        #menuItem_3 img {
+            height: 93vh;
+        }
+
+        #container {
+            width: 100vw;
+            height: 90%;
+            overflow-y: scroll;
+        }
+
+        #progressBar {
+            background-color: lightgoldenrodyellow;
+            height: 5%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        #backgroundContainer1 img {
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+        }
+
+        #backgroundContainer2 img {
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+
+        }
+
+        #backgroundContainer3 img {
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+        }
     </style>
+
 </head>
 
 <body>
@@ -70,18 +130,18 @@
 
     <div data-role="page" id="home">
 
-
         <div role="main" class="ui-content">
 
             <!--<button onclick="Play()" id="music"></button>
             <button id="music"></button>-->
-            <div id="backgroundAudio"></div>
 
-            <audio id="appAudio">
-                <source src="Hilouine/Hilouine.mp3" type="audio/mp3"/>
-            </audio>
 
             <div id="merrionLandingPage"></div>
+            <div id="backgroundAudio"></div>
+
+            <audio id="appAudio" loop>
+                <source src="Hilouine/Hilouine.mp3" type="audio/mp3"/>
+            </audio>
         </div>
 
     </div>
@@ -98,7 +158,6 @@
                 </div>
                 <div class="column">
                     <div id="menuItem_2"></div>
-
                 </div>
                 <div class="column">
                     <div id="menuItem_3"></div>
@@ -111,199 +170,328 @@
 
     <div data-role="page" id="generalHistoryAndHistoricalEvents">
 
-        <h1>no comment 1</h1>
+        <div id="container">
+
+            <div id="backgroundContainer1">
+            </div>
+
+            <div id="backgroundContainer2">
+            </div>
+
+            <div id="backgroundContainer3">
+            </div>
+
+            <div id="backgroundContainer4">
+            </div>
+
+            <div id="backgroundContainer5">
+            </div>
+
+            <div id="backgroundContainer6">
+            </div>
+
+        </div>
+
+        <div id=progressBar></div>
 
     </div>
 
     <div data-role="page" id="notableFigures">
 
-        <h1>no comment 2</h1>
+        <h1>Notable Figures of Merrion Square</h1>
 
     </div>
 
     <div data-role="page" id="writtenAccounts">
 
-        <h1>no comment 3</h1>
+        <h1>Written Accounts</h1>
 
     </div>
 
 
 
 
-</body>
-<script>
-    var backgroundAudio = document.getElementById('appAudio');
-    var audioButton = document.getElementById('music');
 
-    function Play() {
-        if (backgroundAudio.paused) {
-            backgroundAudio.play();
-            audioButton.style.background = 'url(Play.png) no-repeat';
-        } else {
-            backgroundAudio.pause();
-            audioButton.style.background = 'url(Pause.png) no-repeat';
+    <script>
+        var backgroundAudio = document.getElementById('appAudio');
+        var audioButton = document.getElementById('music');
+
+        function Play() {
+            if (backgroundAudio.paused) {
+                backgroundAudio.play().loop;
+                audioButton.style.background = 'url(Play.png) no-repeat';
+            } else {
+                backgroundAudio.pause();
+                audioButton.style.background = 'url(Pause.png) no-repeat';
+            }
         }
-    }
+        /*
+            function Pause() {
+                if (backgroundAudio.play().loop;) {
+                    audioButton.style.background = 'url(Play.png) no-repeat';
+                } else {
+
+                }
+            }
+        */
+
+
+        function generateInitialPlayButton(audio) {
+            var html = '';
+            html += '<div>'
+            html += '<button id="music"></button>\r\n'
+            //html += '<audio id="' + audio.audioIdTag + '" loop><source src="' + audio.audioURL + '" type="audio/mp3"/></audio>\r\n'
+            html += '</div>';
+            return html;
+        }
+
+        function getAudio(audio) {
+            var html = '';
+            html += '<div>'
+            html += '<audio id="' + audio.audioID + '"><source src=' + audio.audioURL + 'type="audio/mp3"/>\r\n'
+            html += '</div>';
+        }
+        //audio object 
+        var audioForApp = {
+            audioIdTag: 'appAudio',
+            audioURL: 'Hilouine/Hilouine.mp3'
+        }
+
+
+        var generalMerrionSquarePages = [];
+        generalMerrionSquarePages[1] = {
+            pageId: 'backgroundContainer1',
+            pageContentsId: 'container1_content',
+            image: 'dublinArchival.jpg',
+            h1: 'Lorem Ipsum',
+            p: 'Lorem ipsum dolor sit uip ex ea commodo consequat.'
+        };
+        generalMerrionSquarePages[2] = {
+            pageId: 'backgroundContainer2',
+            pageContentsId: 'container2_content',
+            image: 'Dublin.png',
+            h1: 'Lorem Ipsum',
+            p: 'Lorem ipsum dolor sit uip ex ea commodo consequat.'
+        };
+        generalMerrionSquarePages[3] = {
+            pageId: 'backgroundContainer3',
+            pageContentsId: 'container3_content',
+            image: 'Oscar_Wilde1.jpg',
+            h1: 'Lorem Ipsum',
+            p: 'Lorem ipsum dolor sit uip ex ea commodo consequat.'
+        };
+        generalMerrionSquarePages[4] = {
+            pageId: 'backgroundContainer4',
+            pageContentsId: 'container4_content',
+            image: 'dublinArchival.jpg',
+            h1: 'Lorem Ipsum',
+            p: 'Lorem ipsum dolor sit uip ex ea commodo consequat.'
+        };
+        generalMerrionSquarePages[5] = {
+            pageId: 'backgroundContainer5',
+            pageContentsId: 'container5_content',
+            image: 'Dublin.png',
+            h1: 'Lorem Ipsum',
+            p: 'Lorem ipsum dolor sit uip ex ea commodo consequat.'
+        };
+        generalMerrionSquarePages[6] = {
+            pageId: 'backgroundContainer6',
+            pageContentsId: 'container3_content',
+            image: 'Oscar_Wilde1.jpg',
+            h1: 'Lorem Ipsum',
+            p: 'Lorem ipsum dolor sit uip ex ea commodo consequat.'
+        };
+
+        var landingPage = [];
+
+        landingPage[1] = {
+            h1: 'Merrion Square',
+            h3: 'General History and Historical Events',
+            button: '<a class="discover" data-role="button" data-mini="true" data-inline="true">Discover</a>',
+            destination: 'merrionGeneral',
+        };
+
+        var generalMerrionMenuItems = [];
+        generalMerrionMenuItems[1] = {
+            destination: 'generalHistoryAndHistoricalEvents',
+            title: 'General History And Historical Events',
+            image: 'Oscar_Wilde2.jpg',
+            style: 'width:100%',
+            intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+            stories: '',
+        };
+        generalMerrionMenuItems[2] = {
+            destination: 'notableFigures',
+            title: 'Notable Figures',
+            image: 'notableFigures.png',
+            style: 'width:100%',
+            intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+            stories: '',
+        };
+        generalMerrionMenuItems[3] = {
+            destination: 'writtenAccounts',
+            title: 'Written Accounts',
+            image: 'Letter.png',
+            style: 'width:100%',
+            intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+            stories: '',
+        };
 
 
 
-    function generateInitialPlayButton(audio) {
-        var html = '';
-        html += '<div>'
-        html += '<button id="music"></button>\r\n'
-        //html += '<audio id="' + audio.audioID + '"><source src="' + audio.audioURL + '" type="audio/mp3"/></audio>\r\n'
-        html += '</div>';
-        return html;
-    }
+        function getMerrionMenuItemsById(id, callBack) {
+            var menuItems = generalMerrionMenuItems[id];
+            callBack(menuItems);
+        }
 
-    /*  function getAudio(audio) {
-          var html = '';
-          html += '<div>'
-          html += '<audio id="' + audio.audioID + '"><source src=' + audio.audioURL + 'type="audio/mp3"/>\r\n'
-          html += '</div>';
-          return html;
-      }*/
+        function getLandingPageById(id, callBack) {
+            var menuItems = landingPage[id];
+            callBack(menuItems);
+        }
 
-    var audioForApp = {
-        audioID: 'appAudio',
-        audioURL: 'Hilouine/Hilouine.mp3'
-    }
+        function getMerrionSquarePageById(id, callBack) {
+            var menuItems = generalMerrionSquarePages[id];
+            callBack(menuItems);
+        }
 
 
-    var landingPage = [];
+        function generateLandingPage(items) {
+            var html = '';
+            html += '<div>'
+            html += '<h1>' + items.h1 + '</h1>\r\n'
+            html += '<h3>' + items.h3 + '</h3>\r\n'
+            html += '<div class="discoverSection" data-destination="#' + items.destination + '">' + items.button + '\r\n'
+            html += '</div>';
+            return html;
+        }
 
-    landingPage[1] = {
-        h1: 'Some interesting placeholder text here!!',
-        h3: 'by Someone of Interest',
-        button: '<a class="discover" data-role="button" data-mini="true" data-inline="true">Discover</a>',
-        destination: 'merrionGeneral',
-    };
+        function generateMerrionMenu(menu) {
+            var html = '';
+            html += '<div>'
+            html += '<div class="menuLink" data-destination="#' + menu.destination + '">\r\n'
+            html += '<img src="' + menu.image + '" style="' + menu.style + '">\r\n'
+            html += '<h3>' + menu.title + '</h3>' + '</div>'
+            html += '</div>';
+            return html;
+        }
 
-    var generalMerrionMenuItems = [];
-    generalMerrionMenuItems[1] = {
-        destination: 'generalHistoryAndHistoricalEvents',
-        title: 'General History And Historical Events',
-        image: 'Oscar_Wilde2.jpg',
-        style: 'width:100%',
-        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        stories: '',
-    };
-    generalMerrionMenuItems[2] = {
-        destination: 'notableFigures',
-        title: 'Notable Figures',
-        image: 'Oscar_Wilde2.jpg',
-        style: 'width:100%',
-        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        stories: '',
-    };
-    generalMerrionMenuItems[3] = {
-        destination: 'writtenAccounts',
-        title: 'Written Accounts',
-        image: 'Oscar_Wilde2.jpg',
-        style: 'width:100%',
-        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-        stories: '',
-    };
+        function generateGeneralMerrionPages(page) {
+            var html = '';
+            html += '<div>'
+            html += '<img src="' + page.image + '" />\r\n'
+            html += '<div class="' + page.pageContentsId + '">\r\n'
+            html += '<h1>' + page.h1 + '</h1>\r\n'
+            html += '<p>' + page.p + '</p>\r\n'
+            html += '</div>';
+            return html;
+        }
 
 
 
-    function getMerrionMenuItemsById(id, callBack) {
-        var menuItems = generalMerrionMenuItems[id];
-        callBack(menuItems);
-    }
-
-    function getLandingPageById(id, callBack) {
-        var menuItems = landingPage[id];
-        callBack(menuItems);
-    }
+        $(document).ready(function() {
+            console.log(generateInitialPlayButton(audioForApp));
+            $('#backgroundAudio').html(generateInitialPlayButton());
 
 
 
-    function generateLandingPage(items) {
-        var html = '';
-        html += '<div>'
-        html += '<h1>' + items.h1 + '</h1>\r\n'
-        html += '<h3>' + items.h3 + '</h3>\r\n'
-        html += '<div class="discoverSection" data-destination="#' + items.destination + '">' + items.button + '\r\n'
-        html += '</div>';
-        return html;
-    }
 
-    function generateMerrionMenu(menu) {
-        var html = '';
-        html += '<div>'
-        html += '<div class="menuLink" data-destination="#' + menu.destination + '">\r\n'
-        html += '<img src="' + menu.image + '" style="' + menu.style + '">\r\n'
-        html += '<h3>' + menu.title + '</h3>' + '</div>'
-        html += '</div>';
-        return html;
-    }
-    $(document).ready(function() {
-        console.log(generateInitialPlayButton(audioForApp));
-        $('#backgroundAudio').html(generateInitialPlayButton());
-
-        getLandingPageById(1, function(item) {
-            console.log(generateLandingPage(item));
-            $('#merrionLandingPage').html(generateLandingPage(item));
-        });
-
-        getMerrionMenuItemsById(1, function(menuItem) {
-            console.log(generateMerrionMenu(menuItem));
-            $('#menuItem_1').html(generateMerrionMenu(menuItem));
-        });
-        getMerrionMenuItemsById(2, function(menuItem) {
-            console.log(generateMerrionMenu(menuItem));
-            $('#menuItem_2').html(generateMerrionMenu(menuItem));
-        });
-        getMerrionMenuItemsById(3, function(menuItem) {
-            console.log(generateMerrionMenu(menuItem));
-            $('#menuItem_3').html(generateMerrionMenu(menuItem));
-        });
-
-
-        $('.discoverSection').click(function(e) {
-            e.preventDefault();
-            debugger;
-            var dataDestination = $(this).data('destination');
-            console.log(dataDestination);
-
-            $.mobile.changePage(dataDestination, {
-                transition: "slide"
+            getLandingPageById(1, function(item) {
+                console.log(generateLandingPage(item));
+                $('#merrionLandingPage').html(generateLandingPage(item));
             });
-        });
 
-        $('#music').click(function(e) {
-            e.preventDefault();
-            debugger;
-            Play();
-        });
-        /*  
-        $('.scrollThruSection').scroll(function(e) {
-              e.preventDefault();
-              debugger;
-              var dataDestination = $(this).data('destination');
-              console.log(dataDestination);
 
-              $.mobile.changePage(dataDestination, {
-                  transition: "slide"
+
+            getMerrionMenuItemsById(1, function(menuItem) {
+                console.log(generateMerrionMenu(menuItem));
+                $('#menuItem_1').html(generateMerrionMenu(menuItem));
+            });
+            getMerrionMenuItemsById(2, function(menuItem) {
+                console.log(generateMerrionMenu(menuItem));
+                $('#menuItem_2').html(generateMerrionMenu(menuItem));
+            });
+            getMerrionMenuItemsById(3, function(menuItem) {
+                console.log(generateMerrionMenu(menuItem));
+                $('#menuItem_3').html(generateMerrionMenu(menuItem));
+            });
+
+
+
+            getMerrionSquarePageById(1, function(page) {
+                console.log('hello 1');
+                console.log(generateGeneralMerrionPages(page));
+                $('#backgroundContainer1').html(generateGeneralMerrionPages(page));
+            });
+            getMerrionSquarePageById(2, function(page) {
+                console.log('hello 2');
+                console.log(generateGeneralMerrionPages(page));
+                $('#backgroundContainer2').html(generateGeneralMerrionPages(page));
+            });
+            getMerrionSquarePageById(3, function(page) {
+                console.log('hello 3');
+                console.log(generateGeneralMerrionPages(page));
+                $('#backgroundContainer3').html(generateGeneralMerrionPages(page));
+            });
+            getMerrionSquarePageById(4, function(page) {
+                console.log('hello 4');
+                console.log(generateGeneralMerrionPages(page));
+                $('#backgroundContainer4').html(generateGeneralMerrionPages(page));
+            });
+            getMerrionSquarePageById(5, function(page) {
+                console.log('hello 5');
+                console.log(generateGeneralMerrionPages(page));
+                $('#backgroundContainer5').html(generateGeneralMerrionPages(page));
+            });
+            getMerrionSquarePageById(6, function(page) {
+                console.log('hello 6');
+                console.log(generateGeneralMerrionPages(page));
+                $('#backgroundContainer6').html(generateGeneralMerrionPages(page));
+            });
+
+
+
+            $('.discoverSection').click(function(e) {
+                e.preventDefault();
+                debugger;
+                var dataDestination = $(this).data('destination');
+                console.log(dataDestination);
+
+                $.mobile.changePage(dataDestination, {
+                    transition: "slide"
+                });
+            });
+
+            $('#music').click(function(e) {
+                e.preventDefault();
+                debugger;
+                Play();
+            });
+            /*  
+            $('.scrollThruSection').scroll(function(e) {
+                  e.preventDefault();
+                  debugger;
+                  var dataDestination = $(this).data('destination');
+                  console.log(dataDestination);
+
+                  $.mobile.changePage(dataDestination, {
+                      transition: "slide"
+                  });
               });
-          });
-          */
+              */
 
-        $('.menuLink').click(function(e) {
-            e.preventDefault();
-            debugger;
-            var dataDestination = $(this).data('destination');
-            console.log(dataDestination);
+            $('.menuLink').click(function(e) {
+                e.preventDefault();
+                debugger;
+                var dataDestination = $(this).data('destination');
+                console.log(dataDestination);
 
-            $.mobile.changePage(dataDestination, {
-                transition: "slide"
+                $.mobile.changePage(dataDestination, {
+                    transition: "slide"
+                });
             });
+
         });
-
-
-    });
-
-</script>
+    </script>
+</body>
 
 </html>
